@@ -9,9 +9,11 @@ export function trpc(init?: TRPCClientInit) {
   if (isBrowser && browserClient) {
     return browserClient
   };
+  
   const client = createTRPCClient<AppRouter>({ init });
   if (isBrowser) {
     browserClient = client
   };
   return client;
-}
+}// Notice the <AppRouter> generic here.
+

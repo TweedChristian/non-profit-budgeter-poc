@@ -15,11 +15,9 @@ const userList: User[] = [
   },
 ];
 
-const appRouter = t.router({
+export const appRouter = t.router({
   users: t.procedure
-    .query(() => {
-      return userList;
-    }),
+    .query(() => ({users: userList})),
 });
 
 export type AppRouter = typeof appRouter;
