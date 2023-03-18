@@ -36,7 +36,8 @@
 		"@prisma/client": "^4.11.0",
 		"@trpc/client": "^10.16.0",
 		"@trpc/server": "^10.16.0",
+		"prisma": "^4.11.0",
 		"trpc-sveltekit": "^3.4.7",
-		"prisma": "^4.11.0"
+		"zod": "^3.21.4"
 	}
 }

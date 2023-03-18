@@ -15,5 +15,5 @@ export function trpc(init?: TRPCClientInit) {
     browserClient = client
   };
   return client;
-}// Notice the <AppRouter> generic here.
+}
 
