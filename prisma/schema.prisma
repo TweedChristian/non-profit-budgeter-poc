@@ -15,4 +15,27 @@ model User {
   email String  @unique
   full_name  String
   preferred_name String?
+  organizations UserOrganizationMembership[]
+  accountType String @default("User") //Can be user/developer/etc
+  createdAt DateTime @default(now())
 }
+
+model Organization {
+  id Int @id @default(autoincrement())
+  name String
+  slug String
+  users UserOrganizationMembership[]
+  createdAt DateTime @default(now())
+}
+
+model UserOrganizationMembership {
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  role String //Admin, contributor
+  createdAt DateTime @default(now())
+
+  @@id([userId, organizationId])
+}
+
