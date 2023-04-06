@@ -26,6 +26,7 @@ model Organization {
   slug String
   users UserOrganizationMembership[]
   createdAt DateTime @default(now())
+  budgets Budget[]
 }
 
 model UserOrganizationMembership {
@@ -38,4 +39,168 @@ model UserOrganizationMembership {
 
   @@id([userId, organizationId])
 }
+
+model Budget {
+  id Int @id @default(autoincrement())
+  title String
+  createdAt DateTime @default(now())
+  lastUpdatedAt DateTime @default(now())
+  isArchived Boolean
+  isPrimary Boolean
+  year Int
+  chartOfAccountsId Int @unique
+  chartOfAccounts ChartOfAccounts @relation(fields: [chartOfAccountsId], references: [id])
+  organizationId Int @unique
+  organization Organization @relation(fields: [organizationId], references: [id])
+  //topics
+}
+
+model ChartOfAccounts {
+  id Int @id @default(autoincrement())
+  title String
+  categoriesOfAccounts CategoryOfAccounts[]
+  budgetId Int @unique
+  budget Budget?
+}
+
+model CategoryOfAccounts {
+  id Int @id @default(autoincrement())
+  title String //netIncome, expenses, revenue, other expenses, or other revenue
+  chartOfAccountsId Int
+  chartOfAccounts ChartOfAccounts @relation(fields: [chartOfAccountsId], references: [id])
+  accountHeadings AccountHeading[]
+  inputAccounts CategoryOfAccountsInputAccountLabel[]
+  computedAccounts CategoryOfAccountsComputedAccountLabel[]
+}
+
+model AccountHeading {
+  id Int @id @default(autoincrement())
+  title String
+  categoryOfAccountsId Int
+  categoryOfAccounts CategoryOfAccounts @relation(fields: [categoryOfAccountsId], references: [id])
+  inputAccounts AccountHeadingInputAccountLabel[]
+  computedAccounts AccountHeadingComputedAccountLabel []
+  //Nested AccountHeadings
+  parentHeadingId Int?
+  parentHeading AccountHeading? @relation("subHeading", fields: [parentHeadingId], references: [id])
+  childHeadings AccountHeading[] @relation("subHeading")
+}
+
+
+model AccountHeadingInputAccountLabel {
+  inputAccountLabelId Int @unique
+  inputAccountLabel InputAccountLabel @relation(fields: [inputAccountLabelId], references: [id])
+  accountHeadingId Int
+  accountHeading AccountHeading @relation(fields: [accountHeadingId], references: [id])
+
+  @@id([inputAccountLabelId, accountHeadingId])
+}
+
+model CategoryOfAccountsInputAccountLabel {
+  inputAccountLabelId Int @unique
+  inputAccountLabel InputAccountLabel @relation(fields: [inputAccountLabelId], references: [id])
+  categoryOfAccountsId Int
+  categoryOfAccounts CategoryOfAccounts @relation(fields: [categoryOfAccountsId], references: [id])
+
+  @@id([inputAccountLabelId, categoryOfAccountsId])
+}
+
+model InputAccountLabel {
+  id Int @id @default(autoincrement())
+  title String
+  //One of these is required
+  accountHeadingInputAccountLabel AccountHeadingInputAccountLabel?
+  categoryOfAccountsInputAccountLabel CategoryOfAccountsInputAccountLabel?
+}
+
+model AccountHeadingComputedAccountLabel {
+  computedAccountLabelId Int @unique
+  computedAccountLabel ComputedAccountLabel @relation(fields: [computedAccountLabelId], references: [id])
+  accountHeadingId Int
+  accountHeading AccountHeading @relation(fields: [accountHeadingId], references: [id])
+
+  @@id([computedAccountLabelId, accountHeadingId])
+}
+
+model CategoryOfAccountsComputedAccountLabel {
+  computedAccountLabelId Int @unique
+  computedAccountLabel ComputedAccountLabel @relation(fields: [computedAccountLabelId], references: [id])
+  categoryOfAccountsId Int
+  categoryOfAccounts CategoryOfAccounts @relation(fields: [categoryOfAccountsId], references: [id])
+
+  @@id([computedAccountLabelId, categoryOfAccountsId])
+}
+
+model ComputedAccountLabel {
+  id Int @id @default(autoincrement())
+  title String
+  accountHeadingComputedAccountLabel AccountHeadingComputedAccountLabel?
+  categoryOfAccountsComputedAccountLabel CategoryOfAccountsComputedAccountLabel?
+}
+
+// model Topic {
+//   id Int @id @default(autoincrement())
+//   title String
+//   createdAt DateTime @default(now())
+//   lastUpdatedAt DateTime @default(now())
+//   chartOfAccountsId Int
+//   chartOfAccounts ChartOfAccounts @relation(fields: [chartOfAccountsId], references: [id])
+// }
+
+// model Account {
+//   //id
+//   //amount
+//   //link to account label
+//   //13 entry spots, 1 for each month, and 1 for annual
+// }
+
+//same rows of account lines (chart of accounts) will be used across all topics
+//Adding a row is very common (e.g., add an employee)
+//Renaming an account line
+
+//Revenue, expense
+//net-income we calculate, restricted and un-restricted is user added
+
+//entering data -> validate -> submit (edit)
+
+//Add all the rows once
+
+//later on add csv uploading
+
+//Once a budget is an approved, it is FIXED
+
+//Different budgets can exist as drafts/branches
+//Can promote a budget to a primary draft
+//Only one working primary budgets, and it gets moved to archive after it is approved
+
+//Special sheets
+// - Personnel 
+// - Grants
+// - Custom
+
+//Some rows in the chart of accounts are auto-filled from the special sheets
+//Chart of accounts have 'headings' which group certain accounts and rows
+//Always have revenue, always have expenses, always have net-income
+//Sometimes have other revenue, sometimes have other expense
+
+
+//Some account rows are calculated by special sheets, BUT it is always the entire row
+
+//Want to enforce some best practices 
+
+
+//computation is always a sum of accounts in a special sheet
+//preliminary guess for storage is an array of account ids that point to special sheet accounts
+//maybe use some funny range stuff
+
+//Staff and 
+
+//1 row per employee, can group 
+
+//employee -> name, employee-id, job
+
+//account code is what people will group by for a computation
+
+
+//select which rows from a special sheet comprise a calculated field
 
