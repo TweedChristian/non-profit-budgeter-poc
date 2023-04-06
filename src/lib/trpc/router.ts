@@ -1,9 +1,10 @@
 // @filename: server.ts
 import prisma from '$lib/prisma';
-import { initTRPC } from '@trpc/server';
+import { initTRPC, type inferRouterInputs, type inferRouterOutputs } from '@trpc/server';
+import SuperJSON from 'superjson';
 import { z } from "zod";
 
-const t = initTRPC.create();
+const t = initTRPC.create({transformer: SuperJSON});
 
 export const appRouter = t.router({
   users: t.procedure
@@ -24,3 +25,5 @@ export const appRouter = t.router({
 });
 
 export type AppRouter = typeof appRouter;
+export type RouterInputs = inferRouterInputs<AppRouter>;
+export type RouterOutputs = inferRouterOutputs<AppRouter>;
