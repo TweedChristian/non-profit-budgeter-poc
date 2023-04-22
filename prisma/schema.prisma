@@ -27,10 +27,16 @@ enum UserRole {
   ADMIN
 }
 
+enum OrganizationRole {
+  ADMIN
+  CONTRIBUTOR
+  VIEWER
+}
+
 model Organization {
   id Int @id @default(autoincrement())
   name String
-  slug String
+  slug String @unique
   users UserOrganizationMembership[]
   createdAt DateTime @default(now())
   // budgets Budget[]
@@ -41,7 +47,7 @@ model UserOrganizationMembership {
   user User @relation(fields: [userId], references: [id])
   organization Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
-  role String //Admin, contributor
+  role OrganizationRole @default(VIEWER)
   createdAt DateTime @default(now())
 
   @@id([userId, organizationId])

@@ -1,7 +1,7 @@
 <script>
-  export let mewhenthe = false;
+  export let isOpen = false;
 </script>
 
 <p>Testing Sidenav</p>
-<button on:click={() => (mewhenthe = !mewhenthe)}>Testing boolean</button>
-<p>{mewhenthe}</p>
+<button on:click={() => (isOpen = !isOpen)}>Testing boolean</button>
+<p>{isOpen}</p>
