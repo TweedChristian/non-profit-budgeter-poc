@@ -1,5 +1,6 @@
 import type { PageLoad } from "./$types";
+import { trpc } from "$lib/trpc/client";
 
 export const load = (async () => {
-  return {testVal: "foobar"};
+  return trpc().testProcedure.query();
 }) satisfies PageLoad;

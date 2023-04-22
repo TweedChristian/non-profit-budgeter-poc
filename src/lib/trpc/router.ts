@@ -6,7 +6,7 @@ import {
 } from "@trpc/server";
 import SuperJSON from "superjson";
 
-const t = initTRPC.create({ transformer: SuperJSON });
+const t = initTRPC.create({transformer: SuperJSON });
 
 export const appRouter = t.router({
   testProcedure: t.procedure.query(async () => {
