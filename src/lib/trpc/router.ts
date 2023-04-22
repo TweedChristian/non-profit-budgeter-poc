@@ -1,4 +1,5 @@
 // @filename: server.ts
+import prisma from "$lib/prisma";
 import {
   initTRPC,
   type inferRouterInputs,
@@ -10,7 +11,16 @@ const t = initTRPC.create({transformer: SuperJSON });
 
 export const appRouter = t.router({
   testProcedure: t.procedure.query(async () => {
-    return {funny: "foo bar"};
+    return { funny: "foo bar" };
+  }),
+  getDevUser: t.procedure.query(async () => {
+    const user = await prisma.user.findFirst({
+      where: {
+        full_name: "dev dev dev",
+      },
+    });
+
+    return {user};
   }),
 });
 

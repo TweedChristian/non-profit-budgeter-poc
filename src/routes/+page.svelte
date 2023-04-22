@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const a = data.funny;
+  const {user} = data;
 </script>
-<h2>Testing TRPC on VERCEL {a}</h2>
+<h2>Testing TRPC with PRISMA on VERCEL</h2>
+<h3>Found user: {user?.full_name} {user?.accountType} {user?.createdAt}</h3>

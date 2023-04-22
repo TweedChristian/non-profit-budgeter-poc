@@ -5,8 +5,6 @@ import { createTRPCClient, type TRPCClientInit } from "trpc-sveltekit";
 let browserClient: ReturnType<typeof createTRPCClient<AppRouter>>;
 
 export function trpc(init?: TRPCClientInit) {
-  console.log(init);
-  console.log(browserClient);
   const isBrowser = typeof window !== "undefined";
   if (isBrowser && browserClient) {
     return browserClient;
