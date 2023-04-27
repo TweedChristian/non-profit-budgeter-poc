@@ -1,10 +1,13 @@
 <script lang="ts">
+  import Sidenav from "$lib/components/sidenav.svelte";
   import "../app.css";
-  import Sidenav from "./sidenav.svelte";
-
-  export let sidenavOpen = false;
 </script>
 
-<Sidenav bind:isOpen={sidenavOpen}/>
-<slot />
+<div>
+
+</div>
+<Sidenav/>
+<div class="ml-52">
+  <slot />
+</div>
 

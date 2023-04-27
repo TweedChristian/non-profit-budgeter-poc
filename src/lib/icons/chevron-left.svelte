@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let className = "stroke-white";
+  export let className = "fill-white";
 </script>
 
 <svg
