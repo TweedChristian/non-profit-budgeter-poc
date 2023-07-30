@@ -4,11 +4,9 @@
   import Save from "$lib/icons/save.svelte";
   import Users from "$lib/icons/users.svelte";
   import User from "$lib/icons/user.svelte";
-  import { AppRail, AppRailAnchor, AppRailTile } from "@skeletonlabs/skeleton";
+  import { AppRail, AppRailAnchor } from "@skeletonlabs/skeleton";
   import Settings from "$lib/icons/settings.svelte";
-    import HelpCircle from "$lib/icons/help-circle.svelte";
-
-  let currentTile: number = 0;
+  import HelpCircle from "$lib/icons/help-circle.svelte";
 </script>
 
 <nav class="h-full bg-surface-800">
@@ -17,49 +15,34 @@
       <AppRailAnchor href="/"><span>unbothered.</span></AppRailAnchor>
     </svelte:fragment>
     <AppRailAnchor
-      bind:group={currentTile}
-      name="tile-1"
-      value={0}
-      title="tile-1"
+      href="/"
     >
       <svelte:fragment slot="lead"
         ><Calculator className="w-20 stroke-white" /></svelte:fragment
       >
       <span>Budget</span>
     </AppRailAnchor>
-    <AppRailTile
-      bind:group={currentTile}
-      name="tile-1"
-      value={1}
-      title="tile-1"
+    <AppRailAnchor
     >
       <svelte:fragment slot="lead"
         ><Save className="w-20 stroke-white" /></svelte:fragment
       >
       <span>Versions</span>
-    </AppRailTile>
-    <AppRailTile
-      bind:group={currentTile}
-      name="tile-1"
-      value={2}
-      title="tile-1"
+    </AppRailAnchor>
+    <AppRailAnchor
     >
       <svelte:fragment slot="lead"
         ><Users className="w-20 stroke-white" /></svelte:fragment
       >
       <span>Users</span>
-    </AppRailTile>
-    <AppRailTile
-      bind:group={currentTile}
-      name="tile-1"
-      value={3}
-      title="tile-1"
+    </AppRailAnchor>
+    <AppRailAnchor
     >
       <svelte:fragment slot="lead"
         ><AlignRight className="w-20 stroke-white" /></svelte:fragment
       >
       <span>Chart of Accounts</span>
-    </AppRailTile>
+    </AppRailAnchor>
     <!-- --- -->
     <svelte:fragment slot="trail">
       <AppRailAnchor href="/" title="Profile"
