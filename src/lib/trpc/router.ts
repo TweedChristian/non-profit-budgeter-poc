@@ -14,13 +14,18 @@ export const appRouter = t.router({
     return { funny: "foo bar" };
   }),
   getDevUser: t.procedure.query(async () => {
-    const user = await prisma.user.findFirst({
-      where: {
-        full_name: "dev dev dev",
-      },
-    });
-
-    return {user};
+    try {
+      const user = await prisma.user.findFirst({
+        where: {
+          full_name: "dev dev dev",
+        },
+      });
+      return { user };
+    }
+    catch (e) {
+      console.log(e);
+      return null;
+    }
   }),
 });
 
