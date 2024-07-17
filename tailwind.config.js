@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const defaultTheme = require('tailwindcss/defaultTheme')
-const path = require('path');
+const defaultTheme = require('tailwindcss/defaultTheme');
+import { join } from 'path';
+import { skeleton } from '@skeletonlabs/tw-plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class',
+	darkMode: 'class',
   content: [
 		'./src/**/*.{html,js,svelte,ts}',
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		path.join(require.resolve(
+		join(require.resolve(
 			'@skeletonlabs/skeleton'),
 			'../**/*.{html,js,svelte,ts}'
 		)
@@ -25,5 +26,5 @@ export default {
       },
     },
   },
-  plugins: [...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()],
+  plugins: [skeleton],
 };

@@ -1,13 +1,12 @@
-<script lang="ts">
+<script>
   import Sidenav from "$lib/components/sidenav.svelte";
-  import { AppShell } from '@skeletonlabs/skeleton';
+  import { AppShell } from "@skeletonlabs/skeleton";
   import "../app.css";
-  import '../theme.postcss';
-  import '@skeletonlabs/skeleton/styles/all.css';
+  import "../theme.postcss";
 </script>
 
-<AppShell >
-  <svelte:fragment slot="sidebarLeft"><Sidenav/></svelte:fragment>
+<!-- TODO: Migrate to Custom layouts https://next.skeleton.dev/docs/design/layouts -->
+<AppShell>
+  <svelte:fragment slot="sidebarLeft"><Sidenav></Sidenav></svelte:fragment>
   <slot></slot>
 </AppShell>
-
